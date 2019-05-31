@@ -29,7 +29,7 @@ def caculatePI(numberOfRandomPoints):
 def find():
 	desiredCounter = 1
 	calculatedPI = 0.0
-	while abs(calculatedPI - 3.1) > 0.1:
+	while abs(calculatedPI - 3.1) > 0.01:
 		generateRandomPoints(desiredCounter)
 		calculatedPI = caculatePI(desiredCounter)		
 		desiredCounter += 1	
