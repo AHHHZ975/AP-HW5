@@ -1,3 +1,6 @@
+from tabulate import tabulate
+# import matplotlib.pyplot as plt
+import numpy as np
 import time
 import os 
 import math        
@@ -51,27 +54,31 @@ class GauseSolver(object):
 		return ((variable ** 3)/(variable+1))*cos(variable**2)	
 		# return cos(variable**2)	
 
-def executeCpp(): 
-    # create a pipe to a child process 
-    data, temp = os.pipe() 
-  
-    # write to STDIN as a byte object(covert string 
-    # to bytes with encoding utf8) 
-    os.write(temp, bytes("5 10\n", "utf-8")); 
-    os.close(temp) 
-  
-    # store output of the program as a byte string in s 
-    s = subprocess.check_output("g++ CGaussSolver.cpp -o out2;./out2", stdin = data, shell = True) 
-  
-    # decode s to a normal string 
-    # print(s.decode("utf-8")) 
 start_time = time.time()
 a = 0
 b = 1
-n = 2
+n = 10
 aSolver = GauseSolver(n, a, b)
 print(aSolver.exec())
 print("--- %s seconds ---" % (time.time() - start_time))
+
 start_time = time.time()
 os.system('/home/ahz/Desktop/AP-HW5-9423802/Q6/main 2')
 print("--- %s seconds ---" % (time.time() - start_time))
+
+#################### create table ###################
+results = []
+for x in range(1,n+1):
+	########## Python execution time ############
+	start_time = time.time()
+	aSolver = GauseSolver(x, a, b)
+	aSolver.exec()
+	pythonTime = time.time() - start_time	
+	########## C++ execution time ############
+	start_time = time.time()
+	os.system('/home/ahz/Desktop/AP-HW5-9423802/Q6/main ' + str(x))
+	cppTime = time.time() - start_time
+
+	results.append([str(x),  str("%f s" %(pythonTime)), str("%f s" %(cppTime))])
+
+print(tabulate(results, headers=['N', 'Python', 'C++']))
