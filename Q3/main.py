@@ -4,7 +4,6 @@ A2 = [i for i in A1 if i in A0]
 A3 = sorted(A0[i] for i in A0)
 A4 = [[i, i*i] for i in A1]
 
-
 A0 = A0.items()
 A5 = []
 A5.extend(A0)
