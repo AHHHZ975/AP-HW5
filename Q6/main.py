@@ -57,17 +57,19 @@ class GauseSolver(object):
 start_time = time.time()
 a = 0
 b = 1
-n = 10
+n = 2
 aSolver = GauseSolver(n, a, b)
-print(aSolver.exec())
-print("--- %s seconds ---" % (time.time() - start_time))
+print("Result of python code (n = " + str(n) + "): " + str(aSolver.exec()))
+print("Execution time of Python code: " + "%s seconds" % (time.time() - start_time))
 
 start_time = time.time()
-os.system('/home/ahz/Desktop/AP-HW5-9423802/Q6/main 2')
-print("--- %s seconds ---" % (time.time() - start_time))
+os.system('/home/ahz/Desktop/AP-HW5-9423802/Q6/main ' + str(n))
+print("Execution time of C++ code: " + "%s seconds" % (time.time() - start_time) + "\n\n\n")
+
 
 #################### create table ###################
 results = []
+n = 10
 for x in range(1,n+1):
 	########## Python execution time ############
 	start_time = time.time()
@@ -80,5 +82,4 @@ for x in range(1,n+1):
 	cppTime = time.time() - start_time
 
 	results.append([str(x),  str("%f s" %(pythonTime)), str("%f s" %(cppTime))])
-
-print(tabulate(results, headers=['N', 'Python', 'C++']))
+print("\n\n\n" + tabulate(results, headers=['N', 'Python time', 'C++ time']))
