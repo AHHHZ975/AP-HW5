@@ -1,8 +1,7 @@
-
+import time
+import os 
 import math        
 from math import cos
-from math import sin
-from math import exp
 
 class GauseSolver(object):
 	"""docstring for GauseSolver"""
@@ -26,7 +25,7 @@ class GauseSolver(object):
 
 	def legendreZeroes(self, polynomialDegree, i):
 		xnew = 0.0
-		xold = math.cos(3.141592*(i-1/4.0)/((polynomialDegree+1)/2.0))
+		xold = cos(3.141592*(i-1/4.0)/((polynomialDegree+1)/2.0))
 		iteration = 1
 		while True:
 			if not (iteration is 1):
@@ -52,9 +51,27 @@ class GauseSolver(object):
 		return ((variable ** 3)/(variable+1))*cos(variable**2)	
 		# return cos(variable**2)	
 
-
+def executeCpp(): 
+    # create a pipe to a child process 
+    data, temp = os.pipe() 
+  
+    # write to STDIN as a byte object(covert string 
+    # to bytes with encoding utf8) 
+    os.write(temp, bytes("5 10\n", "utf-8")); 
+    os.close(temp) 
+  
+    # store output of the program as a byte string in s 
+    s = subprocess.check_output("g++ CGaussSolver.cpp -o out2;./out2", stdin = data, shell = True) 
+  
+    # decode s to a normal string 
+    # print(s.decode("utf-8")) 
+start_time = time.time()
 a = 0
 b = 1
 n = 2
-aSolver  = GauseSolver(n, a, b)
+aSolver = GauseSolver(n, a, b)
 print(aSolver.exec())
+print("--- %s seconds ---" % (time.time() - start_time))
+start_time = time.time()
+os.system('/home/ahz/Desktop/AP-HW5-9423802/Q6/main 2')
+print("--- %s seconds ---" % (time.time() - start_time))
